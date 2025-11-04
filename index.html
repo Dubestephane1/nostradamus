@@ -100,13 +100,14 @@
 
   <!-- Hero Section -->
   <header class="hero relative py-32 text-center">
-    <div class="relative z-10 max-w-4xl mx-auto px-6">
-      <h1 class="text-6xl md:text-7xl font-bold text-amber-400 mb-6" style="font-family: 'Cinzel', serif; text-shadow: 0 0 20px rgba(212,175,55,0.5);">
+    <div class="relative z-10 max-w-5xl mx-auto px-6">
+      <h1 class="text-6xl md:text-6xl font-bold text-amber-400 mb-6" style="font-family: 'Cinzel', serif; text-shadow: 0 0 20px rgba(212,175,55,0.5);">
         The Prophecies of Nostradamus
       </h1>
-      <p class="text-xl md:text-2xl text-amber-100 mb-12">Explore the 942 quatrains</p>
+      <p class="text-xl md:text-3xl text-amber-100 mb-12">Explore the 942 quatrains</p>
 
-      <div class="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
+      <div class="flex flex-col sm:flex-row gap-4
+       justify-center max-w-md mx-auto">
         <select id="centurySelect" class="px-6 py-3 bg-gray-900 border border-amber-600 text-amber-100 rounded-lg text-lg">
           <option value="">Select Century</option>
           <!-- Filled by JS -->
@@ -183,26 +184,42 @@
       </button>
     </div>
   </section>
-  <footer>
-    <div class="max-w-4xl mx-auto">
-      <p><strong>Nostradamus Decoded</strong> &copy; 2025 | All quatrains are in the public domain</p>
-      <p>Note: Interpretations are based on historical analysis and should be considered as possible explanations rather than definitive predictions.</p>
-      <p>Video credits: <a href="https://www.youtube.com/@NostradamusDecoded" target="_blank" rel="noopener noreferrer">Nostradamus Decoded YouTube Channel</a></p>
-      <p>Follow on X: <a href="https://x.com/NostradamusDeco" target="_blank" rel="noopener noreferrer">Nostradamus Decoded @NostradamusDeco</a></p>
-      
-      <p style="margin-top: 1rem; font-size: 0.95rem;">
-        This website contains approximately <strong>17,500 lines of code</strong>, crafted by a single programmer. <br>
-        Found a mistake? Email me at <a href="mailto:nostra@odinforge.space">nostra@odinforge.space</a>.
+  
+  <!-- Intro Blurb with Grokipedia Link -->
+  <section class="intro-section pt-6 pb-2 px-6 max-w-5xl mx-auto text-center">
+    <div class="bg-gray-900 bg-opacity-60 p-8 rounded-xl border border-amber-800">
+      <h2 class="text-2xl font-bold text-amber-300 mb-6" style="font-family: 'Cinzel', serif;">A Scholarly Resource for Nostradamus's Enigmatic Prophecies</h2>
+      <p class="text-md text-amber-100 mb-6 leading-relaxed">
+        Delve into the complete collection of 942 quatrains from Michel de Nostredame's <em>Les Prophéties</em> (1555–1568 editions).
       </p>
-
-      <div class="support-section">
-        <p style="font-size: 1.1rem; color: #fbbf24; margin-bottom: 0.5rem;"><strong>Support My Work</strong></p>
-        <p style="font-size: 0.9rem; max-width: 600px; margin: 0 auto 1rem;">If you find this resource valuable and would like to support the creation of more content, consider making a contribution.</p>
-        <a href="https://paypal.me/dubestephane?country.x=CA&locale.x=en_US" target="_blank" rel="noopener noreferrer" class="support-btn">
-          ☕ Buy Me a Coffee
-        </a>
-      </div>
+      <p class="text-md text-amber-100 mb-6 leading-relaxed">
+        This site offers original Old French texts alongside modern English translations, historical context, and video analyses—free and public domain for study and research.
+      </p>
+      <p class="text-md text-gray-300 italic">
+        For a comprehensive overview of Nostradamus's life, astrological influences, and prophetic legacy, explore <a href="https://grokipedia.com/page/Prophecies_of_Nostradamus" target="_blank" rel="noopener noreferrer" class="text-amber-400 hover:underline">Grokipedia's entry on the Prophecies of Nostradamus</a> (CC-BY-SA licensed).
+      </p>
     </div>
+  </section>
+
+  <footer>
+    <div class="footer">
+      <p class="copyright">
+        &copy; 2025 Nostradamus Decoded | All quatrains are in the public domain (original 16th-century texts).
+      </p>
+      
+      <p class="disclaimer">
+        <strong>Scholarly Note:</strong> This site provides primary texts and neutral tools for study. For critical analysis, see our <a href="/bibliography.html">bibliography</a>. <br>Interpretations are based on historical analysis and should be considered as possible explanations rather than definitive predictions.
+      </p>
+      
+      <p class="contact">
+        Found a mistake? Email: <a href="mailto:nostra@odinforge.space">nostra@odinforge.space</a>
+      </p>
+      
+      <p class="support">
+        <strong>Support this Resource:</strong> If you value this scholarly edition, <a href="https://paypal.me/dubestephane?country.x=CA&locale.x=en_US" target="_blank" rel="noopener noreferrer">contribute</a> to expand annotations and tools.
+      </p>
+    </div>
+    
   </footer>
 
   <div id="imageModal" class="hidden fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center">
