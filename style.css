@@ -4,6 +4,15 @@
     .quatrain-line { margin-bottom: 0.1rem; padding-bottom: 0.25rem; border-bottom: 1px dotted #4b5563; }
     .interpretation { background: rgba(255, 255, 255, 0.05); border-left: 4px solid #f59e0b; padding-left: 0.1 rem; }
     
+    .bib-container { max-width: 800px; margin: 2rem auto; padding: 1rem; }
+    .bib-intro { font-style: italic; margin-bottom: 2rem; text-align: center; }
+    .bib-table { width: 100%; border-collapse: collapse; margin-bottom: 2rem; }
+    .bib-table th, .bib-table td { padding: 0.5rem; border-bottom: 1px solid #ddd; text-align: left; }
+    .bib-table th { background: #0b0a0a2e; font-weight: bold; }
+    .bib-table a { color: #0066cc; text-decoration: none; }
+    .bib-table a:hover { text-decoration: underline; }
+    .category { font-size: 1em; font-weight: bold; margin-top: 1.5rem; color: #0dff00ff; }
+    
     footer {
       background: linear-gradient(to bottom, rgba(15, 12, 41, 0.95), rgba(0, 0, 0, 0.98));
       border-top: 2px solid #d4af37;
