@@ -186,7 +186,7 @@
   </section>
   
   <!-- Intro Blurb with Grokipedia Link -->
-  <section class="intro-section pt-6 pb-2 px-6 max-w-5xl mx-auto text-center">
+  <section class="intro-section pt-6 px-6 max-w-5xl mx-auto text-center">
     <div class="bg-gray-900 bg-opacity-60 p-8 rounded-xl border border-amber-800">
       <h2 class="text-2xl font-bold text-amber-300 mb-6" style="font-family: 'Cinzel', serif;">A Scholarly Resource for Nostradamus's Enigmatic Prophecies</h2>
       <p class="text-md text-amber-100 mb-6 leading-relaxed">
@@ -201,7 +201,20 @@
     </div>
   </section>
 
-  <footer>
+ <section class="timeline-section pt-12 px-6 max-w-auto mx-auto">
+  <div class="iframe-placeholder" data-src="https://cdn.knightlab.com/libs/timeline3/latest/embed/index.html?source=v2%3A2PACX-1vQBlVjJ_e-oDj1gmuXIZ6wAGjEDMaKcCTgrULxHcxxrl4bHIEzhHe9B9uxWNWCk54RI4UX32jIXjO5g&font=Default&lang=en&initial_zoom=2&width=100%25&height=400">
+    <div class="spinner">Loading…</div>
+  </div>
+  <iframe class="lazy-iframe" width="100%" height="400" loading="lazy"
+         webkitallowfullscreen mozallowfullscreen allowfullscreen frameborder="0"
+         style="display:none;"></iframe>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded',()=>{const p=document.querySelector('.iframe-placeholder'),i=document.querySelector('.lazy-iframe');if('loading'in HTMLIFrameElement.prototype&&i.getBoundingClientRect().top<window.innerHeight){i.src=p.dataset.src;i.style.display='block';p.remove();return}const o=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){i.src=p.dataset.src;i.style.display='block';p.remove();o.unobserve(en.target)}})},{rootMargin:'200px'});o.observe(p)});
+</script>
+
+ <footer>
     <div class="footer">
       <p class="copyright">
         &copy; 2025 Nostradamus Decoded | All quatrains are in the public domain (original 16th-century texts).
