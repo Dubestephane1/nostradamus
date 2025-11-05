@@ -125,6 +125,16 @@ function displayQuatrain() {
     quatrainImageContainer.classList.add('hidden');
   }
 
+  // Lazy loading for the timeline app
+  const timelineObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('fade-in'); // Your CSS: opacity:0 to 1
+      }
+    });
+  });
+  document.querySelectorAll('.timeline-event').forEach(el => timelineObserver.observe(el));
+  
   // Show the section
   quatrainSection.classList.remove('hidden');
   quatrainSection.scrollIntoView({ behavior: 'smooth' });
