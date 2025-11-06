@@ -13,51 +13,74 @@ const interpretationText = document.getElementById('interpretationText');
 
 let currentData = {}; // Stores loaded century
 
-// Populate centuries
-for (let i = 1; i <= 10; i++) {
-  const opt = document.createElement('option');
-  opt.value = i;
-  opt.textContent = `Century ${i}`;
-  centurySelect.appendChild(opt);
+// Global for search data
+let quatrainsData = [];
+let fuse = null; // Fuse index
+
+// Function to load all century JSONs and build search index
+async function loadAllQuatrainsForSearch() {
+  const centuries = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; // Adjust if you have extras
+  for (let c = 1; c <= centuries.length; c++) {
+    try {
+      // FIXED: Match your main loader's path
+      const response = await fetch(`js/data/century${c}.json`);
+      if (!response.ok) throw new Error(`Century ${c} not found`);
+      const centuryData = await response.json();
+      Object.entries(centuryData).forEach(([quatrainNum, qData]) => {
+        quatrainsData.push({
+          id: `${c}:${quatrainNum}`,
+          century: c,
+          quatrain: parseInt(quatrainNum),
+          french: qData.french.join(' '), // Flatten array for search
+          english: qData.english.join(' '),
+          interpretation: qData.interpretation,
+          video: qData.video || '',
+          image: qData.image || ''
+        });
+      });
+    } catch (error) {
+      console.warn(`Century ${c} JSON load failed:`, error); // Graceful if a file's missing
+    }
+  }
+
+  // Build Fuse index once all loaded
+  fuse = new Fuse(quatrainsData, {
+    keys: ['french', 'english', 'interpretation'],
+    threshold: 0.3, // Fuzzy tolerance
+    includeScore: true,
+    ignoreLocation: true
+  });
+
+  console.log(`Search ready: ${quatrainsData.length} quatrains indexed!`);
 }
 
-// Load century data
-centurySelect.addEventListener('change', async () => {
-  const century = centurySelect.value;
-  quatrainSelect.innerHTML = '<option>Select Quatrain</option>';
-  quatrainSelect.disabled = true;
-  loadBtn.disabled = true;
+// Helper: Your existing loadQuatrain, or add if missing
+function loadQuatrain(id) {
+  const [century, quatrain] = id.split(':');
+  centurySelect.value = century;
+  // FIXED: Trigger the change event to load century first
+  centurySelect.dispatchEvent(new Event('change'));
+  setTimeout(() => { // Wait for async load
+    quatrainSelect.value = quatrain;
+    displayQuatrain();
+  }, 300);
+  searchInput.value = ''; // Clear search
+  searchResults.classList.add('hidden');
+}
 
-  if (!century) return;
-
-  try {
-    const res = await fetch(`js/data/century${century}.json`);
-    if (!res.ok) throw new Error('Century not found');
-    currentData = await res.json();
-
-    // Populate quatrains
-    Object.keys(currentData).sort((a, b) => a - b).forEach(num => {
-      const opt = document.createElement('option');
-      opt.value = num;
-      opt.textContent = `Quatrain ${num}`;
-      quatrainSelect.appendChild(opt);
+// MOVED: Timeline observer setup (once on load, not per display)
+function initTimelineObserver() {
+  const timelineObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('fade-in'); // Your CSS: opacity:0 to 1
+      }
     });
-    quatrainSelect.disabled = false;
-  } catch (err) {
-    alert('Failed to load century data. Check console.');
-    console.error(err);
-  }
-});
+  });
+  document.querySelectorAll('.timeline-event').forEach(el => timelineObserver.observe(el));
+}
 
-// Enable load button
-quatrainSelect.addEventListener('change', () => {
-  loadBtn.disabled = !quatrainSelect.value;
-});
-
-// Load quatrain
-loadBtn.addEventListener('click', displayQuatrain);
-quatrainSelect.addEventListener('keydown', e => e.key === 'Enter' && displayQuatrain());
-
+// Load quatrain (unchanged, but timeline observer removed)
 function displayQuatrain() {
   const century = centurySelect.value;
   const quatrainNum = quatrainSelect.value;
@@ -125,16 +148,6 @@ function displayQuatrain() {
     quatrainImageContainer.classList.add('hidden');
   }
 
-  // Lazy loading for the timeline app
-  const timelineObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('fade-in'); // Your CSS: opacity:0 to 1
-      }
-    });
-  });
-  document.querySelectorAll('.timeline-event').forEach(el => timelineObserver.observe(el));
-  
   // Show the section
   quatrainSection.classList.remove('hidden');
   quatrainSection.scrollIntoView({ behavior: 'smooth' });
@@ -143,7 +156,58 @@ function displayQuatrain() {
   updateNavigationButtons(century, quatrainNum);
 }
 
-// Random
+// WRAPPED: All init in DOMContentLoaded for safety/order
+document.addEventListener('DOMContentLoaded', () => {
+  loadAllQuatrainsForSearch(); // Load search index
+  initTimelineObserver(); // Set timeline once
+
+  // Populate centuries
+  for (let i = 1; i <= 10; i++) {
+    const opt = document.createElement('option');
+    opt.value = i;
+    opt.textContent = `Century ${i}`;
+    centurySelect.appendChild(opt);
+  }
+
+  // Load century data
+  centurySelect.addEventListener('change', async () => {
+    const century = centurySelect.value;
+    quatrainSelect.innerHTML = '<option>Select Quatrain</option>';
+    quatrainSelect.disabled = true;
+    loadBtn.disabled = true;
+
+    if (!century) return;
+
+    try {
+      const res = await fetch(`js/data/century${century}.json`);
+      if (!res.ok) throw new Error('Century not found');
+      currentData = await res.json();
+
+      // Populate quatrains
+      Object.keys(currentData).sort((a, b) => a - b).forEach(num => {
+        const opt = document.createElement('option');
+        opt.value = num;
+        opt.textContent = `Quatrain ${num}`;
+        quatrainSelect.appendChild(opt);
+      });
+      quatrainSelect.disabled = false;
+    } catch (err) {
+      alert('Failed to load century data. Check console.');
+      console.error(err);
+    }
+  });
+
+  // Enable load button
+  quatrainSelect.addEventListener('change', () => {
+    loadBtn.disabled = !quatrainSelect.value;
+  });
+
+  // Load quatrain
+  loadBtn.addEventListener('click', displayQuatrain);
+  quatrainSelect.addEventListener('keydown', e => e.key === 'Enter' && displayQuatrain());
+});
+
+// Random (unchanged)
 randomBtn.addEventListener('click', () => {
   const centuries = Array.from({length: 10}, (_, i) => i + 1);
   const randomCentury = centuries[Math.floor(Math.random() * centuries.length)];
@@ -159,7 +223,7 @@ randomBtn.addEventListener('click', () => {
   }, 300);
 });
 
-// Previous Quatrain
+// Previous Quatrain (unchanged, but add updateNavigationButtons if missing below)
 prevBtn.addEventListener('click', () => {
   const currentQuatrain = parseInt(quatrainSelect.value);
   const quatrains = Object.keys(currentData).map(Number).sort((a, b) => a - b);
@@ -184,7 +248,7 @@ prevBtn.addEventListener('click', () => {
   }
 });
 
-// Next Quatrain
+// Next Quatrain (unchanged)
 nextBtn.addEventListener('click', () => {
   const currentQuatrain = parseInt(quatrainSelect.value);
   const quatrains = Object.keys(currentData).map(Number).sort((a, b) => a - b);
@@ -209,7 +273,7 @@ nextBtn.addEventListener('click', () => {
   }
 });
 
-// Modal functionality
+// Modal functionality (unchanged)
 const imageModal = document.getElementById('imageModal');
 const modalImage = document.getElementById('modalImage');
 const closeModalBtn = document.getElementById('closeModal');
@@ -232,3 +296,48 @@ imageModal.addEventListener('click', (e) => {
     imageModal.classList.add('hidden');
   }
 });
+
+const searchInput = document.getElementById('searchInput');
+const searchResults = document.getElementById('searchResults');
+
+// IMPROVED: Debounce search for perf (optional, but smooths rapid typing)
+let searchTimeout;
+searchInput.addEventListener('input', (e) => {
+  clearTimeout(searchTimeout);
+  searchTimeout = setTimeout(() => {
+    if (!fuse) return; // Wait for index to load
+    const query = e.target.value.trim();
+    searchResults.innerHTML = '';
+    searchResults.classList.add('hidden');
+
+    if (query.length < 2) return;
+
+    const results = fuse.search(query);
+    if (results.length > 0) {
+      results.slice(0, 10).forEach(result => {
+        const item = result.item;
+        const resultDiv = document.createElement('div');
+        resultDiv.className = 'p-3 bg-gray-800 rounded-lg cursor-pointer hover:bg-gray-700 border border-amber-600';
+        resultDiv.innerHTML = `
+          <strong class="text-amber-300">Century ${item.century}, Quatrain ${item.quatrain}</strong><br>
+          <small class="text-gray-400">${item.english.substring(0, 100)}...</small><br>
+          <a href="#" onclick="loadQuatrain('${item.id}'); return false;" class="text-amber-400 hover:underline block mt-1">View Full →</a>
+        `;
+        resultDiv.addEventListener('click', () => loadQuatrain(item.id)); // Bonus: Click anywhere
+        searchResults.appendChild(resultDiv);
+      });
+      searchResults.classList.remove('hidden');
+    } else {
+      searchResults.innerHTML = '<div class="p-3 text-gray-500 italic bg-gray-800 rounded-lg">No matches—try "comet" or "guerre"?</div>';
+      searchResults.classList.remove('hidden');
+    }
+  }, 200); // 200ms debounce
+});
+
+// ADDED: updateNavigationButtons stub (if you call it but didn't define—toggle prev/next disable)
+function updateNavigationButtons(century, quatrainNum) {
+  const quatrains = Object.keys(currentData).map(Number).sort((a, b) => a - b);
+  const currentIndex = quatrains.indexOf(parseInt(quatrainNum));
+  prevBtn.disabled = currentIndex === 0 && parseInt(century) === 1;
+  nextBtn.disabled = currentIndex === quatrains.length - 1 && parseInt(century) === 10;
+}

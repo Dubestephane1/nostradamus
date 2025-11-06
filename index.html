@@ -89,6 +89,8 @@
   }
   </script>
 
+  <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js"></script>
+
   <!-- Hreflang for multilingual content (English primary, French secondary) -->
   <link rel="alternate" hreflang="en" href="https://nostradamus.odinforge.space/" />
   <link rel="alternate" hreflang="x-default" href="https://nostradamus.odinforge.space/" />
@@ -104,7 +106,7 @@
       <h1 class="text-6xl md:text-6xl font-bold text-amber-400 mb-6" style="font-family: 'Cinzel', serif; text-shadow: 0 0 20px rgba(212,175,55,0.5);">
         The Prophecies of Nostradamus
       </h1>
-      <p class="text-xl md:text-3xl text-amber-100 mb-12">Explore the 942 quatrains</p>
+      <p class="text-xl md:text-3xl text-amber-100 mb-4">Explore the 942 quatrains</p>
 
       <div class="flex flex-col sm:flex-row gap-4
        justify-center max-w-md mx-auto">
@@ -121,6 +123,18 @@
           Load
         </button>
       </div>
+
+       <!-- Filled by Search engine -->
+     <div class="search-container mt-8 max-w-md mx-auto">
+      <p class="text-xl md:text-3xl text-amber-100 mb-4">Search with Keywords</p>
+      <input 
+        type="text" 
+        id="searchInput" 
+        placeholder="Search quatrains (e.g., 'flame' or 'prophecy' in French/English)." 
+        class="w-full px-6 py-3 bg-gray-900 border border-amber-600 text-amber-100 rounded-lg text-sm focus:outline-none focus:border-amber-400"/>
+      <div id="searchResults" class="mt-4 space-y-2 hidden"></div>
+    </div> 
+
     </div>
   </header>
 
