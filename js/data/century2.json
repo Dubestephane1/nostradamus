@@ -1,14 +1,14 @@
 {
   "1": {
     "french": [
-      "VERS Aquitaine par insults Britanniques,",
-      "De par eux mesmes grandes incursions. [Et par eux]",
-      "Pluies,gelées feront terroirs iniques,",
-      "Port Selyn fortes fera inuasions."
+      "VERS Aquitaine par insuls Britanniques,",
+      "De par eux mesmes grandes incursions :",
+      "Pluyes,gelées feront terroirs iniques,",
+      "Port Selyn fortes fera invasions."
     ],
     "english": [
       "Towards Aquitaine by British insults,",
-      "Through them great incursions themselves. [And by them]",
+      "Through them great incursions themselves.",
       "Rain and frost will make the lands unjust,",
       "Port Selyn will make strong invasions."
     ],
@@ -19,9 +19,9 @@
   "2": {
     "french": [
       "La teste blue fera la teste blanche",
-      "Autant de mal que France a fait leur bien.",
-      "Mort a l’anthenne grand pendu sus la branche,",
-      "Quand prins des siens le roy dira combien."
+      "Autant de mal que France a faict leur bien :",
+      "Mort a l’anthene, grand pendu sus la branche,",
+      "Quand prins des siens le Roy dira combien."
     ],
     "english": [
       "The blue head will become a white head,",
@@ -36,9 +36,9 @@
   "3": {
     "french": [
       "Pour la chaleur solaire sus la mer",
-      "De Negrepont les poissons demis cuits:",
-      "Les habitants les viendront entamer",
-      "Quand Rod.& Gennes leur faudra le biscuit"
+      "De Negrepont les poissons demy cuits,",
+      "Les habitans les viendront entamer,",
+      "Quand Rhod & Gennes leur faudra le biscuit."
     ],
     "english": [
       "For the solar heat over the sea,",
@@ -52,9 +52,9 @@
   },
   "4": {
     "french": [
-      "Depuis Monech iusques au pres de Secile",
+      "Depuis Monach jusqu'aupres de Sicille,",
       "Toute la plage demourra desolée,",
-      "Il ny aura fauxbourg,cité,ne vile [ville]",
+      "Il n'y aura fauxbourgs, cité, ne ville,",
       "Que par Barbares pillée soit & vollée."
     ],
     "english": [
@@ -69,9 +69,9 @@
   },
   "5": {
     "french": [
-      "Qu’en dans poisson, fer & lettre enfermée",
-      "Hors sortira qui puys fera la guerre,",
-      "Aura par mer sa classe bien ramée",
+      "Qu’en dans poisson, fer & lettre enfermée,",
+      "Hors sortira, qui puis fera la guerre,",
+      "Aura par mer sa classe bien ramée,",
       "Apparoissant pres de Latine terre."
     ],
     "english": [
@@ -86,9 +86,9 @@
   },
   "6": {
     "french": [
-      "Aupres des portes & dedans deux cités",
-      "Seront deux fleaux onques n’aperceu vn tel,",
-      "Faim dedans peste, de fer hors gens boutés,",
+      "Aupres des portes & dedans deux citez",
+      "Seront deux fleaux & onc n’apperceu un tel,",
+      "Faim, dedans peste, de fer hors gens boutez,",
       "Crier secours au grand Dieu immortel."
     ],
     "english": [
@@ -103,10 +103,10 @@
   },
   "7": {
     "french": [
-      "Entre plusieurs aux isles deportés",
-      "L’vn estre nay à deux dens en la gorge [L’un] [dents]",
-      "Mourront de faim les arbres esbrotés [esbroutés]",
-      "Pour eux neuf roy nouel edict leur forge. [nouuel]"
+      "Entre plusieurs aux isles deportez,",
+      "L’un estre nay à deux dents en la gorge :",
+      "Mourront de faim les arbres esbrotez,",
+      "Pour eux neuf Roy, nouvel edict leur forge."
     ],
     "english": [
       "Among many deported to the islands,",
@@ -120,10 +120,10 @@
   },
   "8": {
     "french": [
-      "Temples sacrés prime façon Romaine",
-      "Reieteront les goffes fondements,",
-      "Prenant leurs loys premieres & humaines,",
-      "Chassant, non tout, des saints les cultements."
+      "Temples sacrés prime façon Romaine,",
+      "Rejetteront les goffres fondements,",
+      "Prenant leurs lois premieres & humaines,",
+      "Chassant, non tout, des saincts les cultements."
     ],
     "english": [
       "Sacred temples in the old Roman style",
@@ -138,9 +138,9 @@
   "9": {
     "french": [
       "Neuf ans le regne le maigre en paix tiendra,",
-      "Puis il cherra en soif si sanguinaire:",
-      "Pour luy grand peuple sans foy & loy mourra",
-      "Tué par vn beaucoup plus de bonnaire."
+      "Puis il cherra en soif si sanguinaire,",
+      "Pour luy grand peuple sans foy & loy mourra,",
+      "Tué par un beaucoup plus de debonnaire."
     ],
     "english": [
       "For nine years the thin king will hold peace,",
@@ -154,10 +154,10 @@
   },
   "10": {
     "french": [
-      "Auant long temps le tout sera rangé",
-      "Nous esperons vn siecle bien senestre:",
-      "L’estat des masques & des seulz bien changé",
-      "Peu troueront qu’a son rang veuille estre."
+      "Avant long temps le tout sera rangé,",
+      "Nous esperons un siecle bien senestre :",
+      "L’estat des masques & des seuls bien changé,",
+      "Peu trouveront qu’a son rang vueille estre."
     ],
     "english": [
       "Before a long time everything will be arranged,",
@@ -171,10 +171,10 @@
   },
   "11": {
     "french": [
-      "Le prochain fils de l’asnier paruiendra",
-      "Tant esleué iusques au regne des fors,",
-      "Son aspre gloire vn chascun la craindra,",
-      "Mais ses enfants du regne getés hors."
+      "Le prochain fils de l’aisnier parviendra,",
+      "Tant eslevé jusqu'au regne des fors :",
+      "Son aspre gloire un chacun la craindra,",
+      "Mais ses enfants du regne gettez hors."
     ],
     "english": [
       "The next son of the ash‑tree will appear,",
@@ -188,10 +188,10 @@
   },
   "12": {
     "french": [
-      "Yeux clos, ouuerts d’antique fantasie",
-      "L’habit des seulz seront mis à neant,",
-      "Le grand monarque chastiera leur frenesie:",
-      "Rauir des temples le tresor par deuant."
+      "Yeux clos, ouverts d’antique fantasie,",
+      "L’habit des seuls seront mis à neant :",
+      "Le grand monarque chastiera leur frenaisie,",
+      "Ravir des temples le tresor par devant."
     ],
     "english": [
       "Closed eyes, opened by ancient fantasy,",
@@ -205,10 +205,10 @@
   },
   "13": {
     "french": [
-      "Le corps sans ame plus n’estre en sacrifice.",
-      "Iour de la mort mis en natiuité.",
-      "L’esprit diuin fera l’ame felice",
-      "Voiant le verbe en son eternité."
+      "Le corps sans ame plus n’estre en sacrifice,",
+      "Jour de la mort mis en natiVité :",
+      "L’esprit divin fera l’ame felice,",
+      "Voyant le verbe en son esternité."
     ],
     "english": [
       "The soulless body will no longer be a sacrifice.",
@@ -222,10 +222,10 @@
   },
   "14": {
     "french": [
-      "A. Tours, Iean, garde seront yeux penetrants",
-      "Descrouuriront de loing la grand sereyne,",
-      "Elle & sa suitte au port seront entrants",
-      "Combats, poulsés, puissance souueraine."
+      "A Tours, Gien, gardé seront yeux penetrants,",
+      "Descrouvriront de loing la grand sereine :",
+      "Elle & sa suite au port seront entrans,",
+      "Combat, poussez, puissance souveraine."
     ],
     "english": [
       "At Tours, Ian, the guard will have penetrating eyes,",
@@ -239,9 +239,9 @@
   },
   "15": {
     "french": [
-      "Vn peu deuant monarque trucidé?",
-      "Castor Pollux en nef,astre crinite.",
-      "L’erain publiq par terre & mer vuidé",
+      "Un peu devant monarque trucidé :",
+      "Castor, Pollux en nef, astre crinite :",
+      "L’erain public par terre & mer vuidé,",
       "Pise, Ast, Ferrare, Turin, terre interdicte."
     ],
     "english": [
@@ -256,10 +256,10 @@
   },
   "16": {
     "french": [
-      "Naples, Palerme, Secille, Syracuses",
-      "Nouveaux tyrans, fulgures feuz celestes:",
-      "Force de Londres, Gand, Brucelles, & Suses",
-      "Grand hecatombe, triumphe, faire festes."
+      "Naples, Palerme, Sicille, Syracuses,",
+      "Nouveaux tyrans, fulgures feux celestes :",
+      "Force de Londres, Gand, Bruxelles, & Suses,",
+      "Grand hecatombe, triomphe faire festes."
     ],
     "english": [
       "Naples, Palermo, Seville, Syracuse,",
@@ -274,9 +274,9 @@
   "17": {
     "french": [
       "Le camp du temple de la vierge vestale,",
-      "Non esloigné d’Ethne & monts Pyrenées:",
-      "Le grand conduict est caché dens la male",
-      "North.getés fluues & vignes mastinées."
+      "Non esloigné d’Ethene & monts Pyrenées :",
+      "Le grand conduict est caché dans la male,",
+      "North getez fleuves & vignes mastinées."
     ],
     "english": [
       "The camp of the Vestal Virgin’s temple,",
@@ -290,9 +290,9 @@
   },
   "18": {
     "french": [
-      "Nouuelle & pluie subite impetueuse",
-      "Empeschera subit deux exercites.",
-      "Pierre, ciel, feu faire la mer pierreuse,",
+      "Nouvelle et pluye subite, impetueuse,",
+      "Empeschera subit deux exercites :",
+      "Pierre, ciel, feux faire la mer pierreuse,",
       "La mort de sept terre & marin subites."
     ],
     "english": [
@@ -307,9 +307,9 @@
   },
   "19": {
     "french": [
-      "Nouveaux venus, lieu basti sans defense,",
-      "Occuper place par lors inhabitable.",
-      "Prez, maisons, champs, villes prendre à plaisance,",
+      "Nouveaux venus lieu basty sans defense,",
+      "Occuper la place par lors inhabitable :",
+      "Pres, maisons, champs, villes prendre à plaisance,",
       "Faim, peste, guerre, arpen long labourable."
     ],
     "english": [
@@ -324,9 +324,9 @@
   },
   "20": {
     "french": [
-      "Freres & seurs en diuers lieux captifs",
-      "Se trouueront passer pres du monaque,",
-      "Les contempler ses rameaux ententifz,",
+      "Freres & seurs en divers lieux captifs",
+      "Se trouveront passer pres du monarque :",
+      "Les contempler ses rameaux ententifs,",
       "Desplaisant voir menton, front, nez, les marques."
     ],
     "english": [
@@ -341,10 +341,10 @@
   },
   "21": {
     "french": [
-      "L’embassadeur enuoyé par biremes",
-      "A mi chemin d’incogneuz repoulses:",
+      "L’ambassadeur envoyé par biremes,",
+      "A my chemin d’incogneus repoulsez :",
       "De sel renfort viendront quatre triremes,",
-      "Cordes & chaines en Negrepont troussés."
+      "Cordes & chaines en Negrepont troussez."
     ],
     "english": [
       "The ambassador sent by two‑biremes,",
@@ -358,8 +358,8 @@
   },
   "22": {
     "french": [
-      "Le camp Asop d’Eurotte partira,",
-      "S’adioignant proche de lisle submergée:",
+      "Le camp Ascop d’Europe partira,",
+      "S’adioignant proche de l'Isle submergée :",
       "D’Arton classe phalange pliera,",
       "Nombril du monde plus grand voix subrogée."
     ],
@@ -376,8 +376,8 @@
   "23": {
     "french": [
       "Palais, oyseaux, par oyseau dechassé,",
-      "Bien tost apres le prince preuenu,",
-      "Combien qu’hors fleuue enemis repoulsé",
+      "Bien tost apres le Prince parvenu :",
+      "Combien qu’hors fleuve ennemy repoulsé,",
       "Dehors saisi trait d’oyseau soustenu."
     ],
     "english": [
@@ -392,7 +392,7 @@
   },
   "24": {
     "french": [
-      "Bestes farouches de faim fleuves tranner:",
+      "Bestes farouches de faim fleuves tranner,",
       "Plus part du champ encontre Hister sera,",
       "En caige de fer le grand fera treisner,",
       "Quand rien enfant de Germain observera."
@@ -409,10 +409,10 @@
   },
   "25": {
     "french": [
-      "La garde estrange trahira forteresse:",
-      "Espoir & vmbre de plus hault mariage.",
-      "Garde deceue, sort prinse dans la presse,",
-      "Loyre, Son.Rosne, Gar.à mort oultrage."
+      "La garde estrange trahira forteresse,",
+      "Espoir & umbre de plus hault mariage :",
+      "Garde deceue, fort prinse dans la presse,",
+      "Loire Saone, Rosne, Gar à mort outrage."
     ],
     "english": [
       "The foreign guard will betray the fortress:",
