@@ -1,8 +1,9 @@
-# 1. Add trailing slash if missing (clean URL redirect)
+# 1. Force trailing slash if missing (301 redirect)
 /c*/*   /c*/*/   301!
 
-# 2. Serve index.html for any century/quatrain path with trailing slash
-/c*/*/*/   /c*/*/*/index.html   200!
+# 2. Rewrite folder-with-trailing-slash → internal index.html
+# Use :splat placeholder to capture the matched path and reuse it
+/c*/*/*   /:splat/index.html   200!
 
-# Fallback for anything else
+# Optional: Catch-all 404 (if you have a custom 404.html)
 /*   /404.html   404
