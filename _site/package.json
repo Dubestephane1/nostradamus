@@ -1,0 +1,27 @@
+{
+  "name": "nostradamus",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+  "build": "eleventy",
+  "serve": "eleventy --serve",
+  "watch": "eleventy --watch",
+  "debug": "DEBUG=* eleventy"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dubestephane1/nostradamus.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Dubestephane1/nostradamus/issues"
+  },
+  "homepage": "https://github.com/Dubestephane1/nostradamus#readme",
+  "devDependencies": {
+    "@11ty/eleventy": "^3.1.2"
+  }
+}

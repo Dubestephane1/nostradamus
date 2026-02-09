@@ -1,0 +1,11 @@
+---
+pagination:
+  data: collections.quatrains
+  size: 1
+  alias: item
+eleventyComputed:
+  permalink: "/c{{ item.century }}/q{{ item.number | padStart(3, '0') }}/"
+  title: "Nostradamus C{{ item.century }}Q{{ item.number }} – Decoded"
+  description: "{{ item.data.interpretation | truncate(160, true, '...') }}"
+---
+{% extends "_includes/quatrain-layout.njk" %}
