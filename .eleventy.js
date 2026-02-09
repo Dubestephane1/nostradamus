@@ -9,6 +9,8 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("images");
   eleventyConfig.addPassthroughCopy("style.css");
 
+  eleventyConfig.addPassthroughCopy("_redirects");
+
   eleventyConfig.addNunjucksFilter("padStart", function (value, length, char) {
     const str = String(value == null ? "" : value);
     const pad = char !== undefined ? String(char) : "0";
