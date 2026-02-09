@@ -1,0 +1,12 @@
+[[redirects]]
+  from = "/c*/*/"
+  to = "/c*/*/index.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/c*/*"
+  to = "/c*/*/"
+  status = 301
+  force = true
+  
