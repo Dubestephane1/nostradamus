@@ -1,8 +1,8 @@
-# Force trailing slash if missing (301 redirect)
+# 1. Force trailing slash if missing (301 redirect)
 /c*/*   /c*/*/   301!
 
-# Rewrite folder-with-slash → internal index.html (200 rewrite, URL stays /c1/q001/)
+# 2. Rewrite folder-with-trailing-slash → internal index.html (200 rewrite, URL stays clean)
 /c*/*/   /c*/*/index.html   200
 
-# Optional: Custom 404 fallback (if you have a 404.html)
+# Optional: Catch-all for unmatched paths → custom 404 if you have 404.html
 /*   /404.html   404
