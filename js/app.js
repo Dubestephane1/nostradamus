@@ -202,24 +202,33 @@ document.addEventListener('DOMContentLoaded', () => {
     loadBtn.disabled = !quatrainSelect.value;
   });
 
-  // Load quatrain — navigate to dedicated quatrain page
+    // Load button click — navigate to dedicated page
   loadBtn.addEventListener('click', () => {
     const century = centurySelect.value;
     const quatrainNumber = quatrainSelect.value;
-    if (!century || !quatrainNumber) return;
 
-    // Fixed: use quatrainNumber instead of number
-    window.location.href = `/c${century}/q${quatrainNumber.toString().padStart(3, '0')}/`;
+    if (!century || !quatrainNumber) {
+      alert("Please select both century and quatrain number");
+      return;
+    }
+
+    // Fixed: use quatrainNumber (not 'number')
+    const url = `/c${century}/q${quatrainNumber.toString().padStart(3, '0')}/`;
+    window.location.href = url;
   });
 
-  // Enter key on quatrain select → same navigation
+  // Enter key on quatrain select — same navigation
   quatrainSelect.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
       const century = centurySelect.value;
       const quatrainNumber = quatrainSelect.value;
+
       if (century && quatrainNumber) {
-        // Fixed: use quatrainNumber instead of number
-        window.location.href = `/c${century}/q${quatrainNumber.toString().padStart(3, '0')}/`;
+        // Fixed: use quatrainNumber (not 'number')
+        const url = `/c${century}/q${quatrainNumber.toString().padStart(3, '0')}/`;
+        window.location.href = url;
+      } else {
+        alert("Please select both century and quatrain number");
       }
     }
   });
