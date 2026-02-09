@@ -1,3 +1,8 @@
-/c*/*   /c*/*/   301!
-/c*/*/*   /:splat/index.html   200!
-/*      /404.html   404
+# 1. Add trailing slash if missing (301 redirect)
+/c*/*   /c*/*/   301
+
+# 2. Serve index.html for century/quatrain paths with trailing slash
+/c*/*/*   /c*/*/*/index.html   200
+
+# 3. Fallback 404
+/*   /404.html   404
