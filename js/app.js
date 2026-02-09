@@ -207,14 +207,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const century = centurySelect.value;
     const quatrainNumber = quatrainSelect.value;
     if (!century || !quatrainNumber) return;
-    window.location.href = `/c${century}/q${quatrainNumber.toString().padStart(3, '0')}/`;
+    window.location.href = `/c${century}/q${number.toString().padStart(3,'0')}/`;
   });
   quatrainSelect.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
       const century = centurySelect.value;
       const quatrainNumber = quatrainSelect.value;
       if (century && quatrainNumber) {
-        window.location.href = `/c${century}/q${quatrainNumber.toString().padStart(3, '0')}/`;
+        window.location.href = `/c${century}/q${number.toString().padStart(3,'0')}/`;
       }
     }
   });
