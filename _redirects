@@ -1,0 +1,9 @@
+# Serve index.html for all quatrain folder paths (rewrite, keep URL clean)
+# This handles /c1/q001/ → /c1/q001/index.html internally (200 = rewrite, not redirect)
+/c*/*/     /c*/*/index.html     200
+
+# Optional: Force trailing slash for consistency (301 redirect)
+/c*/*      /c*/*/     301!
+
+# Optional: Catch-all for any other 404s (serve your custom 404.html if you have one)
+/*         /404.html     404
