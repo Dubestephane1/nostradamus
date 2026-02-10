@@ -1,617 +1,221 @@
-    body { background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e); color: #e5e7eb; font-family: 'Playfair Display', serif; }
-    .hero { background: url('https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80') center/cover; position: relative; }
-    .hero::before { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0.7); }
-    .quatrain-line { margin-bottom: 0.1rem; padding-bottom: 0.25rem; border-bottom: 1px dotted #4b5563; }
-    .interpretation { background: rgba(255, 255, 255, 0.05); border-left: 4px solid #f59e0b; padding-left: 0.1 rem; }
-    
-    .bib-container { max-width: 800px; margin: 2rem auto; padding: 1rem; }
-    .bib-intro { font-style: italic; margin-bottom: 2rem; text-align: center; }
-    .bib-table { width: 100%; border-collapse: collapse; margin-bottom: 2rem; }
-    .bib-table th, .bib-table td { padding: 0.5rem; border-bottom: 1px solid #ddd; text-align: left; }
-    .bib-table th { background: #0b0a0a2e; font-weight: bold; }
-    .bib-table a { color: #0066cc; text-decoration: none; }
-    .bib-table a:hover { text-decoration: underline; }
-    .category { font-size: 1em; font-weight: bold; margin-top: 1.5rem; color: #0dff00ff; }
-    
-    .timeline-section{position:relative}
-    .iframe-placeholder{width:100%;height:400px;background:#f4f4f4;display:flex;align-items:center;justify-content:center;color:#666;font-family:sans-serif}
-    .spinner{display:inline-block;width:40px;height:40px;border:4px solid #ddd;border-top-color:#555;border-radius:50%;animation:s 1s linear infinite}
-    @keyframes s{to{transform:rotate(360deg)}}
-
-    footer {
-      background: linear-gradient(to bottom, rgba(15, 12, 41, 0.95), rgba(0, 0, 0, 0.98));
-      border-top: 2px solid #d4af37;
-      padding: 3rem 0 2rem;
-      margin-top: 4rem;
-      width: 100%;
-      text-align: center;
-    }
-    footer > div {
-      width: 95%;
-      margin: 0 auto;
-    }
-    footer p {
-      color: #d1d5db;
-      margin-bottom: 0.75rem;
-      font-size: 0.95rem;
-      line-height: 1.6;
-    }
-    footer a {
-      color: #fbbf24;
-      text-decoration: none;
-      transition: color 0.3s ease;
-    }
-    footer a:hover {
-      color: #f59e0b;
-      text-decoration: underline;
-    }
-    .support-section {
-      margin-top: 2rem;
-      padding-top: 2rem;
-      border-top: 1px solid rgba(212, 175, 55, 0.3);
-    }
-    .support-btn {
-      display: inline-block;
-      background: linear-gradient(135deg, #d4af37, #f59e0b);
-      color: #0f0c29;
-      padding: 0.75rem 2rem;
-      border-radius: 0.5rem;
-      font-weight: 700;
-      text-decoration: none;
-      margin-top: 1rem;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 6px rgba(212, 175, 55, 0.3);
-      border: 2px solid transparent;
-    }
-    .support-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 16px rgba(212, 175, 55, 0.6);
-      background: #0f0c29;
-      color: #fbbf24;
-      border-color: #d4af37;
-    }
-    
-    /* Responsive adjustments */
-    @media (max-width: 768px) {
-      .hero {
-        padding-top: 6rem;
-        padding-bottom: 6rem;
-      }
-      h1 {
-        font-size: 3rem !important;
-      }
-      p.text-xl {
-        font-size: 1.25rem !important;
-      }
-      .flex-col.sm\\:flex-row {
-        flex-direction: column;
-      }
-      .grid.lg\\:grid-cols-2 {
-        grid-template-columns: 1fr;
-      }
-      footer {
-        padding: 2rem 1rem;
-      }
-      .support-btn {
-        padding: 0.5rem 1.5rem;
-      }
-    }
-    
-    @media (max-width: 480px) {
-      h1 {
-        font-size: 2.5rem !important;
-      }
-      select, button {
-        width: 100%;
-        margin-bottom: 1rem;
-      }
-    }
-    
-    /* Ensure images and media are responsive */
-    img {
-      max-width: 100%;
-      height: auto;
-    }
-    
-    iframe {
-      max-width: 100%;
-    }
- 
-    /* Base container */
-    main {
-      padding-top: 2rem;
-    }
-
-    /* Poem blocks */
-    .poem p {
-      line-height: 1.8;
-      margin-bottom: 0.75rem;
-      font-size: 1.125rem;
-    }
-
-    /* Headings */
-    h1 {
-      font-size: 2.5rem;
-      @media (min-width: 768px) {
-        font-size: 3.5rem;
-      }
-    }
-
-    h2 {
-      font-size: 1.875rem;
-      margin-bottom: 1.25rem;
-    }
-
-    h3 {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-    }
-
-    /* Rows & columns */
-    .row-1 {
-      grid-template-columns: 1fr;
-      @media (min-width: 1024px) {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
-
-    .row-2, .row-3 {
-      grid-template-columns: 1fr;
-    }
-
-    /* Video wrapper (keep 16:9 ratio) */
-    .aspect-w-16.aspect-h-9 {
-      position: relative;
-      padding-bottom: 56.25%;
-      height: 0;
-    }
-
-    .aspect-w-16.aspect-h-9 iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-    }
-
-    /* Image */
-    img {
-      max-width: 100%;
-      height: auto;
-      border-radius: 0.5rem;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-    }
-
-    /* Back link */
-    a.back-link {
-      font-size: 1.125rem;
-      transition: color 0.2s;
-    }
-
-    a.back-link:hover {
-      color: #fbbf24;
-    }
-
-  .font-cinzel {
-  font-family: 'Cinzel', serif;
+/* 1. Global Styles & Typography */
+body { 
+    background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e); 
+    color: #e5e7eb; 
+    font-family: 'Playfair Display', serif; 
+    margin: 0;
 }
 
-.aspect-video {
-  position: relative;
-  padding-bottom: 56.25%; /* 16:9 */
-  height: 0;
-  overflow: hidden;
+.font-cinzel { font-family: 'Cinzel', serif; }
+
+h1 { font-size: 2.5rem; }
+h2 { font-size: 1.875rem; margin-bottom: 1.25rem; }
+h3 { font-size: 1.5rem; margin-bottom: 1rem; }
+
+@media (min-width: 768px) {
+    h1 { font-size: 3.5rem; }
 }
 
-.aspect-video iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+/* 2. Layout Containers */
+main { padding-top: 2rem; }
+
+.bib-container { max-width: 800px; margin: 2rem auto; padding: 1rem; }
+
+.row-1 { 
+    display: grid;
+    grid-template-columns: 1fr; 
 }
 
-/* Optional: make image slightly larger if needed */
-.image-column img {
-  max-height: 500px; /* prevent too tall images */
-  object-fit: contain;
+@media (min-width: 1024px) {
+    .row-1 { grid-template-columns: 1fr 1fr; }
 }
 
+/* 3. Hero & Elements */
+.hero { 
+    background: url('https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80') center/cover; 
+    position: relative; 
+    padding: 4rem 1rem;
+}
+
+.hero::before { 
+    content: ''; 
+    position: absolute; 
+    inset: 0; 
+    background: rgba(0,0,0,0.7); 
+}
+
+.quatrain-line { 
+    margin-bottom: 0.1rem; 
+    padding-bottom: 0.25rem; 
+    border-bottom: 1px dotted #4b5563; 
+}
+
+.interpretation { 
+    background: rgba(255, 255, 255, 0.05); 
+    border-left: 4px solid #f59e0b; 
+    padding-left: 0.1rem; 
+}
+
+.poem p {
+    line-height: 1.8;
+    margin-bottom: 0.75rem;
+    font-size: 1.125rem;
+}
+
+/* 4. Tables & Media */
+.bib-table { width: 100%; border-collapse: collapse; margin-bottom: 2rem; }
+.bib-table th, .bib-table td { padding: 0.5rem; border-bottom: 1px solid #ddd; text-align: left; }
+.bib-table th { background: #0b0a0a2e; font-weight: bold; }
+.bib-table a { color: #0066cc; text-decoration: none; }
+.bib-table a:hover { text-decoration: underline; }
+
+.category { font-size: 1em; font-weight: bold; margin-top: 1.5rem; color: #0dff00; }
+
+img { 
+    max-width: 100%; 
+    height: auto; 
+    border-radius: 0.5rem; 
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5); 
+}
+
+.image-column img { max-height: 500px; object-fit: contain; }
+
+/* Video Aspect Ratio Utility */
+.aspect-video, .aspect-w-16.aspect-h-9 {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 */
+    height: 0;
+    overflow: hidden;
+}
+
+.aspect-video iframe, .aspect-w-16.aspect-h-9 iframe {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+}
+
+/* 5. Components & Buttons */
+.support-btn {
+    display: inline-block;
+    background: linear-gradient(135deg, #d4af37, #f59e0b);
+    color: #0f0c29;
+    padding: 0.75rem 2rem;
+    border-radius: 0.5rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(212, 175, 55, 0.3);
+    border: 2px solid transparent;
+}
+
+.support-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(212, 175, 55, 0.6);
+    background: #0f0c29;
+    color: #fbbf24;
+    border-color: #d4af37;
+}
+
+/* 6. Footer Section */
 footer {
-  margin-top: 4rem;
-  padding: 3rem 1rem 2rem;
-  background: linear-gradient(to top, #0f172a, #1e293b);
-  border-top: 1px solid #92400e; /* amber-800 border */
-  color: #d1d5db; /* light gray text */
-  font-size: 0.95rem;
-  line-height: 1.6;
+    margin-top: 4rem;
+    padding: 3rem 1rem 2rem;
+    background: linear-gradient(to top, #0f172a, #1e293b);
+    border-top: 2px solid #d4af37;
+    color: #d1d5db;
+    text-align: center;
 }
 
 .footer-container {
-  max-width: 1400px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 2.5rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
 }
 
-@media (min-width: 768px) {
-  .footer-container {
-    grid-template-columns: 1fr 1fr;
-    text-align: left;
-  }
+.support-text { color: #fbbf24; font-weight: 600; margin-bottom: 1.25rem; }
+.bibliography-link, .email-link { color: #fbbf24; text-decoration: underline; }
+.bibliography-link:hover, .email-link:hover { color: #fcd34d; }
+
+.copyright {
+    margin-top: 2.5rem;
+    text-align: center;
+    color: #fbbf24;
+    font-size: 0.95rem;
+    opacity: 0.9;
 }
 
-/* Left column: scholarly note, email, copyright */
-.footer-left {
-  text-align: center;
+/* 7. Animations */
+.spinner {
+    display: inline-block;
+    width: 40px; height: 40px;
+    border: 4px solid #ddd;
+    border-top-color: #555;
+    border-radius: 50%;
+    animation: s 1s linear infinite;
+}
+@keyframes s { to { transform: rotate(360deg); } }
+
+/* 8. Mobile Responsiveness */
+@media (max-width: 768px) {
+    .footer-container { grid-template-columns: 1fr; }
+    .hero { padding: 6rem 1rem; }
+    h1 { font-size: 3rem !important; }
 }
 
-@media (min-width: 768px) {
-  .footer-left {
-    text-align: left;
-  }
+@media (max-width: 480px) {
+    h1 { font-size: 2.25rem !important; }
+    select, button { width: 100%; margin-bottom: 1rem; }
 }
 
-.scholarly-note {
-  margin-bottom: 1.5rem;
+/* ... keep your previous styles ... */
+
+/* 1. Global Headings (Desktop/Default) */
+h2 { 
+    font-size: 1.875rem; 
+    margin-bottom: 1.25rem;
+    line-height: 1.3;
+    word-wrap: break-word; /* Prevents long words from spilling over */
+    overflow-wrap: break-word;
 }
 
-.bibliography-link {
-  color: #fbbf24; /* amber-300 */
-  text-decoration: underline;
-}
-
-.bibliography-link:hover {
-  color: #fcd34d; /* lighter amber */
-}
-
-/* Right column: support + icons */
-.footer-right {
-  text-align: center;
-}
-
-@media (min-width: 768px) {
-  .footer-right {
-    text-align: right;
-  }
-}
-
-.support-text {
-  color: #fbbf24; /* yellow/orange as in screenshot */
-  font-weight: 600;
-  margin-bottom: 1.25rem;
-}
-
-    body { background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e); color: #e5e7eb; font-family: 'Playfair Display', serif; }
-    .hero { background: url('https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80') center/cover; position: relative; }
-    .hero::before { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0.7); }
-    .quatrain-line { margin-bottom: 0.1rem; padding-bottom: 0.25rem; border-bottom: 1px dotted #4b5563; }
-    .interpretation { background: rgba(255, 255, 255, 0.05); border-left: 4px solid #f59e0b; padding-left: 0.1 rem; }
-    
-    .bib-container { max-width: 800px; margin: 2rem auto; padding: 1rem; }
-    .bib-intro { font-style: italic; margin-bottom: 2rem; text-align: center; }
-    .bib-table { width: 100%; border-collapse: collapse; margin-bottom: 2rem; }
-    .bib-table th, .bib-table td { padding: 0.5rem; border-bottom: 1px solid #ddd; text-align: left; }
-    .bib-table th { background: #0b0a0a2e; font-weight: bold; }
-    .bib-table a { color: #0066cc; text-decoration: none; }
-    .bib-table a:hover { text-decoration: underline; }
-    .category { font-size: 1em; font-weight: bold; margin-top: 1.5rem; color: #0dff00ff; }
-    
-    .timeline-section{position:relative}
-    .iframe-placeholder{width:100%;height:400px;background:#f4f4f4;display:flex;align-items:center;justify-content:center;color:#666;font-family:sans-serif}
-    .spinner{display:inline-block;width:40px;height:40px;border:4px solid #ddd;border-top-color:#555;border-radius:50%;animation:s 1s linear infinite}
-    @keyframes s{to{transform:rotate(360deg)}}
-
-    footer {
-      background: linear-gradient(to bottom, rgba(15, 12, 41, 0.95), rgba(0, 0, 0, 0.98));
-      border-top: 2px solid #d4af37;
-      padding: 3rem 0 2rem;
-      margin-top: 4rem;
-      width: 100%;
-      text-align: center;
-    }
-    footer > div {
-      width: 95%;
-      margin: 0 auto;
-    }
-    footer p {
-      color: #d1d5db;
-      margin-bottom: 0.75rem;
-      font-size: 0.95rem;
-      line-height: 1.6;
-    }
-    footer a {
-      color: #fbbf24;
-      text-decoration: none;
-      transition: color 0.3s ease;
-    }
-    footer a:hover {
-      color: #f59e0b;
-      text-decoration: underline;
-    }
-    .support-section {
-      margin-top: 2rem;
-      padding-top: 2rem;
-      border-top: 1px solid rgba(212, 175, 55, 0.3);
-    }
-    .support-btn {
-      display: inline-block;
-      background: linear-gradient(135deg, #d4af37, #f59e0b);
-      color: #0f0c29;
-      padding: 0.75rem 2rem;
-      border-radius: 0.5rem;
-      font-weight: 700;
-      text-decoration: none;
-      margin-top: 1rem;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 6px rgba(212, 175, 55, 0.3);
-      border: 2px solid transparent;
-    }
-    .support-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 16px rgba(212, 175, 55, 0.6);
-      background: #0f0c29;
-      color: #fbbf24;
-      border-color: #d4af37;
-    }
-    
-    /* Responsive adjustments */
-    @media (max-width: 768px) {
-      .hero {
-        padding-top: 6rem;
-        padding-bottom: 6rem;
-      }
-      h1 {
-        font-size: 3rem !important;
-      }
-      p.text-xl {
-        font-size: 1.25rem !important;
-      }
-      .flex-col.sm\\:flex-row {
-        flex-direction: column;
-      }
-      .grid.lg\\:grid-cols-2 {
-        grid-template-columns: 1fr;
-      }
-      footer {
-        padding: 2rem 1rem;
-      }
-      .support-btn {
-        padding: 0.5rem 1.5rem;
-      }
-    }
-    
-    @media (max-width: 480px) {
-      h1 {
-        font-size: 2.5rem !important;
-      }
-      select, button {
-        width: 100%;
-        margin-bottom: 1rem;
-      }
-    }
-    
-    /* Ensure images and media are responsive */
-    img {
-      max-width: 100%;
-      height: auto;
-    }
-    
-    iframe {
-      max-width: 100%;
-    }
- 
-    /* Base container */
-    main {
-      padding-top: 2rem;
-    }
-
-    /* Poem blocks */
-    .poem p {
-      line-height: 1.8;
-      margin-bottom: 0.75rem;
-      font-size: 1.125rem;
-    }
-
-    /* Headings */
-    h1 {
-      font-size: 2.5rem;
-      @media (min-width: 768px) {
-        font-size: 3.5rem;
-      }
-    }
-
+/* 2. Responsive adjustments for Tablets */
+@media (max-width: 768px) {
     h2 {
-      font-size: 1.875rem;
-      margin-bottom: 1.25rem;
+        font-size: 1.65rem;
     }
-
-    h3 {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-    }
-
-    /* Rows & columns */
-    .row-1 {
-      grid-template-columns: 1fr;
-      @media (min-width: 1024px) {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
-
-    .row-2, .row-3 {
-      grid-template-columns: 1fr;
-    }
-
-    /* Video wrapper (keep 16:9 ratio) */
-    .aspect-w-16.aspect-h-9 {
-      position: relative;
-      padding-bottom: 56.25%;
-      height: 0;
-    }
-
-    .aspect-w-16.aspect-h-9 iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-    }
-
-    /* Image */
-    img {
-      max-width: 100%;
-      height: auto;
-      border-radius: 0.5rem;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-    }
-
-    /* Back link */
-    a.back-link {
-      font-size: 1.125rem;
-      transition: color 0.2s;
-    }
-
-    a.back-link:hover {
-      color: #fbbf24;
-    }
-
-  .font-cinzel {
-  font-family: 'Cinzel', serif;
 }
 
+/* 3. Responsive adjustments for Small Phones */
+@media (max-width: 480px) {
+    h2 {
+        font-size: 1.4rem !important; /* Reduced size to prevent spillover */
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+        text-align: center; /* Often helps with balance on small screens */
+    }
+    
+    /* Ensuring h1 and other text scales down as well */
+    h1 {
+        font-size: 2rem !important;
+    }
+}
+
+/* Optional: Ensure no weird shrinkage on small screens */
 .aspect-video {
-  position: relative;
-  padding-bottom: 56.25%; /* 16:9 */
-  height: 0;
-  overflow: hidden;
+  min-width: 280px;          /* prevents tiny mobile squish */
+  margin: 1.5rem auto;       /* breathing room top/bottom */
 }
 
-.aspect-video iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-
-/* Optional: make image slightly larger if needed */
-.image-column img {
-  max-height: 500px; /* prevent too tall images */
-  object-fit: contain;
-}
-
-footer {
-  margin-top: 4rem;
-  padding: 3rem 1rem 2rem;
-  background: linear-gradient(to top, #0f172a, #1e293b);
-  border-top: 1px solid #92400e; /* amber-800 border */
-  color: #d1d5db; /* light gray text */
-  font-size: 0.95rem;
-  line-height: 1.6;
-}
-
-.footer-container {
-  max-width: 1400px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 2.5rem;
-}
-
+/* If you want it larger by default but capped */
 @media (min-width: 768px) {
-  .footer-container {
-    grid-template-columns: 1fr 1fr;
-    text-align: left;
+  .aspect-video {
+    max-width: 800px;
   }
 }
 
-/* Left column: scholarly note, email, copyright */
-.footer-left {
-  text-align: center;
-}
-
-@media (min-width: 768px) {
-  .footer-left {
-    text-align: left;
-  }
-}
-
-.scholarly-note {
-  margin-bottom: 1.5rem;
-}
-
-.bibliography-link {
-  color: #fbbf24; /* amber-300 */
-  text-decoration: underline;
-}
-
-.bibliography-link:hover {
-  color: #fcd34d; /* lighter amber */
-}
-
-/* Right column: support + icons */
-.footer-right {
-  text-align: center;
-}
-
-@media (min-width: 768px) {
-  .footer-right {
-    text-align: right;
-  }
-}
-
-.support-text {
-  color: #fbbf24; /* yellow/orange as in screenshot */
-  font-weight: 600;
-  margin-bottom: 1.25rem;
-}
-
-.social-icons a:hover .social-icon {
-  fill: white !important;  /* white on hover */
-}
-
-/* Optional: make it even more visible */
-.social-icons a:hover {
-  color: white !important;  /* backup for non-SVG parts */
-}
-
-/* Copyright at bottom, centered */
-.copyright {
-  margin-top: 2.5rem;
-  text-align: center;
-  color: #fbbf24;
-  font-size: 0.95rem;
-  opacity: 0.9;
-}
-
-/* Email link */
-.email-link {
-  color: #fbbf24;
-  text-decoration: underline;
-}
-
-.email-link:hover {
-  color: #fcd34d;
-}
-
-
-/* Copyright at bottom, centered */
-.copyright {
-  margin-top: 2.5rem;
-  text-align: center;
-  color: #fbbf24;
-  font-size: 0.95rem;
-  opacity: 0.9;
-}
-
-/* Email link */
-.email-link {
-  color: #fbbf24;
-  text-decoration: underline;
-}
-
-.email-link:hover {
-  color: #fcd34d;
+.shadow-xl:hover {
+  transform: translateY(-4px);
+  transition: all 0.3s ease;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.4);
 }

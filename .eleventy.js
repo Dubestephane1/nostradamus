@@ -16,6 +16,7 @@ module.exports = function (eleventyConfig) {
     const pad = char !== undefined ? String(char) : "0";
     return str.padStart(length, pad);
   });
+  
 
   // Build absolute URL for canonical/og:url (set URL in env for production)
   eleventyConfig.addNunjucksFilter("absoluteUrl", function (path) {
