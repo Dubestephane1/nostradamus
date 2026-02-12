@@ -13,90 +13,51 @@
   <title>Nostradamus Prophecies: 942 Quatrains in Original French with English Translation & Analysis</title>
   <meta name="description" content="Explore all 942 Nostradamus quatrains in original 1568 French with modern English translations, detailed historical explanations, and video breakdowns. A complete public domain resource." />
   
-  <!-- Canonical URL (Replace with your actual domain) -->
-  <link rel="canonical" href="https://nostradamus.odinforge.space/" />
+  <!-- Use trailing slash convention or trim filter -->
+  <link rel="canonical" href="https://quatrains.netlify.app{{ page.url }}" />
 
-  <!-- Favicon (32x32) -->
-  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png" />
-  <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png" />
-  <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png" />
-
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  
-  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
 
-  <!-- Custom Styles -->
-  <link href="style.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            cinzel: ['Cinzel', 'serif'],
+            playfair: ['Playfair Display', 'serif'],
+          }
+        }
+      }
+    }
+  </script>
 
-  <!-- Open Graph / Facebook -->
-  <meta property="og:type" content="website"/>
-  <meta property="og:title" content="Nostradamus Prophecies: 942 Quatrains in French & English"/>
-  <meta property="og:description" content="Original French quatrains by Nostradamus with modern English translations, historical analysis, and video explanations. All 942 prophecies decoded."/>
-  <meta property="og:url" content="https://nostradamus.odinforge.space/"/>
-  <meta property="og:site_name" content="Nostradamus Decoded"/>
-  <meta property="og:locale" content="en_US"/>
-  <meta property="og:image" content="https://nostradamus.odinforge.space/images/images/og-image.jpg"/>
-  <meta property="og:image:width" content="1200"/>
-  <meta property="og:image:height" content="630"/>
-  <meta property="og:image:alt" content="Nostradamus Quatrains in French and English with Video Analysis"/>
+  <link href="/style.css" rel="stylesheet">
 
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image"/>
-  <meta name="twitter:title" content="Nostradamus Prophecies: 942 Quatrains in French & English"/>
-  <meta name="twitter:description" content="All 942 quatrains in original French + English translation + video explanations. Free public domain resource."/>
-  <meta name="twitter:image" content="https://nostradamus.odinforge.space/images/og-image.jpg"/>
+  <!-- Open Graph -->
+  <meta property="og:title" content="{{ title }}" />
+  <meta property="og:description" content="{{ description }}" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://quatrains.netlify.app{{ page.url }}" />
+  <meta property="og:image" content="https://quatrains.netlify.app/images/og-image.jpg" />
+
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="{{ title }}" />
+  <meta name="twitter:description" content="{{ description }}" />
+  <meta name="twitter:image" content="https://quatrains.netlify.app/images/og-image.jpg" />
   <meta name="twitter:site" content="@NostradamusDeco"/> <!-- Update with your handle -->
 
-  <!-- Structured Data: Website + Organization -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "Nostradamus Decoded",
-    "url": "https://nostradamus.odinforge.space/",
-    "description": "Complete collection of 942 Nostradamus quatrains in original French with modern English translations and historical analysis.",
-    "publisher": {
-      "@type": "Organization",
-      "name": "Nostradamus Decoded",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://nostradamus.odinforge.space/images/logo.png",
-        "width": "200",
-        "height": "60"
-      }
-    },
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": "https://nostradamus.odinforge.space/search?q={search_term_string}",
-      "query-input": "required name=search_term_string"
-    }
-  }
-  </script>
+  <!-- Favicons -->
+  <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="/images/favicon-32x32.png" type="image/png" sizes="32x32">
+  <link rel="icon" href="/images/favicon-16x16.png" type="image/png" sizes="16x16">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
 
-  <!-- Structured Data: Breadcrumb (Optional - enhance if you have pages) -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [{
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Home",
-      "item": "https://nostradamus.odinforge.space/"
-    }]
-  }
-  </script>
-
-  <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js"></script>
-
-  <!-- Hreflang for multilingual content (English primary, French secondary) -->
-  <link rel="alternate" hreflang="en" href="https://nostradamus.odinforge.space/" />
-  <link rel="alternate" hreflang="x-default" href="https://nostradamus.odinforge.space/" />
-
-  <!-- Preload critical resources (optional) -->
-  <!-- <link rel="preload" href="/fonts/cinzel.woff2" as="font" type="font/woff2" crossorigin> -->
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)">
 </head>
 <body class="min-h-screen">
 
@@ -236,7 +197,7 @@ document.addEventListener('DOMContentLoaded',()=>{const p=document.querySelector
      
       <p class="disclaimer text-sm leading-relaxed">
         <strong>Scholarly Note:</strong> This site provides primary texts and neutral tools for study. For critical analysis, see our 
-        <a href="https://quatrains.netlify.app/bibliography.html" target="_blank" rel="noopener noreferrer" class="text-amber-400 hover:underline">bibliography</a>.<br>
+        <a href="/bibliography/" target="_blank" rel="noopener noreferrer" class="text-amber-400 hover:underline">bibliography</a>.<br>
         Interpretations are based on historical analysis and should be considered as possible explanations rather than definitive predictions.
       </p>
 
