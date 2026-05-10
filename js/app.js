@@ -11,6 +11,7 @@ const frenchText = document.getElementById('frenchText');
 const englishText = document.getElementById('englishText');
 const interpretationText = document.getElementById('interpretationText');
 
+const TOTAL_CENTURIES = 10;
 let currentData = {}; // Stores loaded century
 
 // Global for search data
@@ -19,29 +20,34 @@ let fuse = null; // Fuse index
 
 // Function to load all century JSONs and build search index
 async function loadAllQuatrainsForSearch() {
-  const centuries = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; // Adjust if you have extras
-  for (let c = 1; c <= centuries.length; c++) {
+  const fetchPromises = Array.from({ length: TOTAL_CENTURIES }, (_, i) => i + 1).map(async (c) => {
     try {
-      // FIXED: Match your main loader's path
       const response = await fetch(`js/data/century${c}.json`);
-      if (!response.ok) throw new Error(`Century ${c} not found`);
+      if (!response.ok) return null;
       const centuryData = await response.json();
-      Object.entries(centuryData).forEach(([quatrainNum, qData]) => {
-        quatrainsData.push({
-          id: `${c}:${quatrainNum}`,
-          century: c,
-          quatrain: parseInt(quatrainNum),
-          french: qData.french.join(' '), // Flatten array for search
-          english: qData.english.join(' '),
-          interpretation: qData.interpretation,
-          video: qData.video || '',
-          image: qData.image || ''
-        });
-      });
+      return { c, centuryData };
     } catch (error) {
-      console.warn(`Century ${c} JSON load failed:`, error); // Graceful if a file's missing
+      console.warn(`Century ${c} JSON load failed:`, error);
+      return null;
     }
-  }
+  });
+
+  const results = await Promise.all(fetchPromises);
+  
+  results.filter(r => r !== null).forEach(({ c, centuryData }) => {
+    Object.entries(centuryData).forEach(([quatrainNum, qData]) => {
+      quatrainsData.push({
+        id: `${c}:${quatrainNum}`,
+        century: c,
+        quatrain: parseInt(quatrainNum),
+        french: qData.french.join(' '), // Flatten array for search
+        english: qData.english.join(' '),
+        interpretation: qData.interpretation,
+        video: qData.video || '',
+        image: qData.image || ''
+      });
+    });
+  });
 
   // Build Fuse index once all loaded
   fuse = new Fuse(quatrainsData, {
@@ -162,7 +168,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initTimelineObserver(); // Set timeline once
 
   // Populate centuries
-  for (let i = 1; i <= 10; i++) {
+  for (let i = 1; i <= TOTAL_CENTURIES; i++) {
     const opt = document.createElement('option');
     opt.value = i;
     opt.textContent = `Century ${i}`;
@@ -236,7 +242,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Random (unchanged)
 randomBtn.addEventListener('click', () => {
-  const centuries = Array.from({length: 10}, (_, i) => i + 1);
+  const centuries = Array.from({length: TOTAL_CENTURIES}, (_, i) => i + 1);
   const randomCentury = centuries[Math.floor(Math.random() * centuries.length)];
   
   centurySelect.value = randomCentury;
@@ -288,7 +294,7 @@ nextBtn.addEventListener('click', () => {
   } else {
     // Go to next century, first quatrain
     const currentCentury = parseInt(centurySelect.value);
-    if (currentCentury < 10) {
+    if (currentCentury < TOTAL_CENTURIES) {
       centurySelect.value = currentCentury + 1;
       centurySelect.dispatchEvent(new Event('change'));
       setTimeout(() => {
@@ -369,5 +375,5 @@ function updateNavigationButtons(century, quatrainNum) {
   const quatrains = Object.keys(currentData).map(Number).sort((a, b) => a - b);
   const currentIndex = quatrains.indexOf(parseInt(quatrainNum));
   prevBtn.disabled = currentIndex === 0 && parseInt(century) === 1;
-  nextBtn.disabled = currentIndex === quatrains.length - 1 && parseInt(century) === 10;
+  nextBtn.disabled = currentIndex === quatrains.length - 1 && parseInt(century) === TOTAL_CENTURIES;
 }
