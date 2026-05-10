@@ -20,6 +20,7 @@ let fuse = null; // Fuse index
 
 // Function to load all century JSONs and build search index
 async function loadAllQuatrainsForSearch() {
+  console.log("Starting to index quatrains for search...");
   const fetchPromises = Array.from({ length: TOTAL_CENTURIES }, (_, i) => i + 1).map(async (c) => {
     try {
       const response = await fetch(`js/data/century${c}.json`);
@@ -40,14 +41,19 @@ async function loadAllQuatrainsForSearch() {
         id: `${c}:${quatrainNum}`,
         century: c,
         quatrain: parseInt(quatrainNum),
-        french: qData.french.join(' '), // Flatten array for search
-        english: qData.english.join(' '),
-        interpretation: qData.interpretation,
+        french: Array.isArray(qData.french) ? qData.french.join(' ') : (qData.french || ''),
+        english: Array.isArray(qData.english) ? qData.english.join(' ') : (qData.english || ''),
+        interpretation: qData.interpretation || '',
         video: qData.video || '',
         image: qData.image || ''
       });
     });
   });
+
+  if (typeof Fuse === 'undefined') {
+    console.error("Fuse.js not loaded! Search will not work.");
+    return;
+  }
 
   // Build Fuse index once all loaded
   fuse = new Fuse(quatrainsData, {
@@ -238,6 +244,51 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
   });
+
+  // --- SEARCH FUNCTIONALITY ---
+  const searchInput = document.getElementById('searchInput');
+  const searchResults = document.getElementById('searchResults');
+
+  if (searchInput && searchResults) {
+    let searchTimeout;
+    searchInput.addEventListener('input', (e) => {
+      clearTimeout(searchTimeout);
+      searchTimeout = setTimeout(() => {
+        if (!fuse) {
+          console.warn("Search index not ready yet...");
+          return;
+        }
+        const query = e.target.value.trim();
+        searchResults.innerHTML = '';
+        searchResults.classList.add('hidden');
+
+        if (query.length < 2) return;
+
+        const results = fuse.search(query);
+        if (results.length > 0) {
+          results.slice(0, 10).forEach(result => {
+            const item = result.item;
+            const quatrainUrl = `/c${item.century}/q${String(item.quatrain).padStart(3, '0')}/`;
+            const resultDiv = document.createElement('div');
+            resultDiv.className = 'p-3 bg-gray-800 rounded-lg cursor-pointer hover:bg-gray-700 border border-amber-600';
+            resultDiv.innerHTML = `
+              <strong class="text-amber-300">Century ${item.century}, Quatrain ${item.quatrain}</strong><br>
+              <small class="text-gray-400">${item.english.substring(0, 100)}...</small><br>
+              <a href="${quatrainUrl}" class="text-amber-400 hover:underline block mt-1">View Full →</a>
+            `;
+            resultDiv.addEventListener('click', (e) => {
+              if (!e.target.closest('a')) window.location.href = quatrainUrl;
+            });
+            searchResults.appendChild(resultDiv);
+          });
+          searchResults.classList.remove('hidden');
+        } else {
+          searchResults.innerHTML = '<div class="p-3 text-gray-500 italic bg-gray-800 rounded-lg">No matches—try "comet" or "guerre"?</div>';
+          searchResults.classList.remove('hidden');
+        }
+      }, 200);
+    });
+  }
 });
 
 // Random (unchanged)
@@ -328,46 +379,6 @@ imageModal.addEventListener('click', (e) => {
   if (e.target === imageModal) {
     imageModal.classList.add('hidden');
   }
-});
-
-const searchInput = document.getElementById('searchInput');
-const searchResults = document.getElementById('searchResults');
-
-// IMPROVED: Debounce search for perf (optional, but smooths rapid typing)
-let searchTimeout;
-searchInput.addEventListener('input', (e) => {
-  clearTimeout(searchTimeout);
-  searchTimeout = setTimeout(() => {
-    if (!fuse) return; // Wait for index to load
-    const query = e.target.value.trim();
-    searchResults.innerHTML = '';
-    searchResults.classList.add('hidden');
-
-    if (query.length < 2) return;
-
-    const results = fuse.search(query);
-    if (results.length > 0) {
-      results.slice(0, 10).forEach(result => {
-        const item = result.item;
-        const quatrainUrl = `/c${item.century}/q${String(item.quatrain).padStart(3, '0')}/`;
-        const resultDiv = document.createElement('div');
-        resultDiv.className = 'p-3 bg-gray-800 rounded-lg cursor-pointer hover:bg-gray-700 border border-amber-600';
-        resultDiv.innerHTML = `
-          <strong class="text-amber-300">Century ${item.century}, Quatrain ${item.quatrain}</strong><br>
-          <small class="text-gray-400">${item.english.substring(0, 100)}...</small><br>
-          <a href="${quatrainUrl}" class="text-amber-400 hover:underline block mt-1">View Full →</a>
-        `;
-        resultDiv.addEventListener('click', (e) => {
-          if (!e.target.closest('a')) window.location.href = quatrainUrl;
-        });
-        searchResults.appendChild(resultDiv);
-      });
-      searchResults.classList.remove('hidden');
-    } else {
-      searchResults.innerHTML = '<div class="p-3 text-gray-500 italic bg-gray-800 rounded-lg">No matches—try "comet" or "guerre"?</div>';
-      searchResults.classList.remove('hidden');
-    }
-  }, 200); // 200ms debounce
 });
 
 // ADDED: updateNavigationButtons stub (if you call it but didn't define—toggle prev/next disable)
