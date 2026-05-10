@@ -11,6 +11,7 @@ const frenchText = document.getElementById('frenchText');
 const englishText = document.getElementById('englishText');
 const interpretationText = document.getElementById('interpretationText');
 
+const TOTAL_CENTURIES = 10;
 let currentData = {}; // Stores loaded century
 
 // Global for search data
@@ -19,28 +20,39 @@ let fuse = null; // Fuse index
 
 // Function to load all century JSONs and build search index
 async function loadAllQuatrainsForSearch() {
-  const centuries = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; // Adjust if you have extras
-  for (let c = 1; c <= centuries.length; c++) {
+  console.log("Starting to index quatrains for search...");
+  const fetchPromises = Array.from({ length: TOTAL_CENTURIES }, (_, i) => i + 1).map(async (c) => {
     try {
-      // FIXED: Match your main loader's path
       const response = await fetch(`js/data/century${c}.json`);
-      if (!response.ok) throw new Error(`Century ${c} not found`);
+      if (!response.ok) return null;
       const centuryData = await response.json();
-      Object.entries(centuryData).forEach(([quatrainNum, qData]) => {
-        quatrainsData.push({
-          id: `${c}:${quatrainNum}`,
-          century: c,
-          quatrain: parseInt(quatrainNum),
-          french: qData.french.join(' '), // Flatten array for search
-          english: qData.english.join(' '),
-          interpretation: qData.interpretation,
-          video: qData.video || '',
-          image: qData.image || ''
-        });
-      });
+      return { c, centuryData };
     } catch (error) {
-      console.warn(`Century ${c} JSON load failed:`, error); // Graceful if a file's missing
+      console.warn(`Century ${c} JSON load failed:`, error);
+      return null;
     }
+  });
+
+  const results = await Promise.all(fetchPromises);
+  
+  results.filter(r => r !== null).forEach(({ c, centuryData }) => {
+    Object.entries(centuryData).forEach(([quatrainNum, qData]) => {
+      quatrainsData.push({
+        id: `${c}:${quatrainNum}`,
+        century: c,
+        quatrain: parseInt(quatrainNum),
+        french: Array.isArray(qData.french) ? qData.french.join(' ') : (qData.french || ''),
+        english: Array.isArray(qData.english) ? qData.english.join(' ') : (qData.english || ''),
+        interpretation: qData.interpretation || '',
+        video: qData.video || '',
+        image: qData.image || ''
+      });
+    });
+  });
+
+  if (typeof Fuse === 'undefined') {
+    console.error("Fuse.js not loaded! Search will not work.");
+    return;
   }
 
   // Build Fuse index once all loaded
@@ -162,7 +174,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initTimelineObserver(); // Set timeline once
 
   // Populate centuries
-  for (let i = 1; i <= 10; i++) {
+  for (let i = 1; i <= TOTAL_CENTURIES; i++) {
     const opt = document.createElement('option');
     opt.value = i;
     opt.textContent = `Century ${i}`;
@@ -232,11 +244,56 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
   });
+
+  // --- SEARCH FUNCTIONALITY ---
+  const searchInput = document.getElementById('searchInput');
+  const searchResults = document.getElementById('searchResults');
+
+  if (searchInput && searchResults) {
+    let searchTimeout;
+    searchInput.addEventListener('input', (e) => {
+      clearTimeout(searchTimeout);
+      searchTimeout = setTimeout(() => {
+        if (!fuse) {
+          console.warn("Search index not ready yet...");
+          return;
+        }
+        const query = e.target.value.trim();
+        searchResults.innerHTML = '';
+        searchResults.classList.add('hidden');
+
+        if (query.length < 2) return;
+
+        const results = fuse.search(query);
+        if (results.length > 0) {
+          results.slice(0, 10).forEach(result => {
+            const item = result.item;
+            const quatrainUrl = `/c${item.century}/q${String(item.quatrain).padStart(3, '0')}/`;
+            const resultDiv = document.createElement('div');
+            resultDiv.className = 'p-3 bg-gray-800 rounded-lg cursor-pointer hover:bg-gray-700 border border-amber-600';
+            resultDiv.innerHTML = `
+              <strong class="text-amber-300">Century ${item.century}, Quatrain ${item.quatrain}</strong><br>
+              <small class="text-gray-400">${item.english.substring(0, 100)}...</small><br>
+              <a href="${quatrainUrl}" class="text-amber-400 hover:underline block mt-1">View Full →</a>
+            `;
+            resultDiv.addEventListener('click', (e) => {
+              if (!e.target.closest('a')) window.location.href = quatrainUrl;
+            });
+            searchResults.appendChild(resultDiv);
+          });
+          searchResults.classList.remove('hidden');
+        } else {
+          searchResults.innerHTML = '<div class="p-3 text-gray-500 italic bg-gray-800 rounded-lg">No matches—try "comet" or "guerre"?</div>';
+          searchResults.classList.remove('hidden');
+        }
+      }, 200);
+    });
+  }
 });
 
 // Random (unchanged)
 randomBtn.addEventListener('click', () => {
-  const centuries = Array.from({length: 10}, (_, i) => i + 1);
+  const centuries = Array.from({length: TOTAL_CENTURIES}, (_, i) => i + 1);
   const randomCentury = centuries[Math.floor(Math.random() * centuries.length)];
   
   centurySelect.value = randomCentury;
@@ -288,7 +345,7 @@ nextBtn.addEventListener('click', () => {
   } else {
     // Go to next century, first quatrain
     const currentCentury = parseInt(centurySelect.value);
-    if (currentCentury < 10) {
+    if (currentCentury < TOTAL_CENTURIES) {
       centurySelect.value = currentCentury + 1;
       centurySelect.dispatchEvent(new Event('change'));
       setTimeout(() => {
@@ -324,50 +381,10 @@ imageModal.addEventListener('click', (e) => {
   }
 });
 
-const searchInput = document.getElementById('searchInput');
-const searchResults = document.getElementById('searchResults');
-
-// IMPROVED: Debounce search for perf (optional, but smooths rapid typing)
-let searchTimeout;
-searchInput.addEventListener('input', (e) => {
-  clearTimeout(searchTimeout);
-  searchTimeout = setTimeout(() => {
-    if (!fuse) return; // Wait for index to load
-    const query = e.target.value.trim();
-    searchResults.innerHTML = '';
-    searchResults.classList.add('hidden');
-
-    if (query.length < 2) return;
-
-    const results = fuse.search(query);
-    if (results.length > 0) {
-      results.slice(0, 10).forEach(result => {
-        const item = result.item;
-        const quatrainUrl = `/c${item.century}/q${String(item.quatrain).padStart(3, '0')}/`;
-        const resultDiv = document.createElement('div');
-        resultDiv.className = 'p-3 bg-gray-800 rounded-lg cursor-pointer hover:bg-gray-700 border border-amber-600';
-        resultDiv.innerHTML = `
-          <strong class="text-amber-300">Century ${item.century}, Quatrain ${item.quatrain}</strong><br>
-          <small class="text-gray-400">${item.english.substring(0, 100)}...</small><br>
-          <a href="${quatrainUrl}" class="text-amber-400 hover:underline block mt-1">View Full →</a>
-        `;
-        resultDiv.addEventListener('click', (e) => {
-          if (!e.target.closest('a')) window.location.href = quatrainUrl;
-        });
-        searchResults.appendChild(resultDiv);
-      });
-      searchResults.classList.remove('hidden');
-    } else {
-      searchResults.innerHTML = '<div class="p-3 text-gray-500 italic bg-gray-800 rounded-lg">No matches—try "comet" or "guerre"?</div>';
-      searchResults.classList.remove('hidden');
-    }
-  }, 200); // 200ms debounce
-});
-
 // ADDED: updateNavigationButtons stub (if you call it but didn't define—toggle prev/next disable)
 function updateNavigationButtons(century, quatrainNum) {
   const quatrains = Object.keys(currentData).map(Number).sort((a, b) => a - b);
   const currentIndex = quatrains.indexOf(parseInt(quatrainNum));
   prevBtn.disabled = currentIndex === 0 && parseInt(century) === 1;
-  nextBtn.disabled = currentIndex === quatrains.length - 1 && parseInt(century) === 10;
+  nextBtn.disabled = currentIndex === quatrains.length - 1 && parseInt(century) === TOTAL_CENTURIES;
 }
