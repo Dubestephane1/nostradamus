@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-  "build": "eleventy",
-  "serve": "eleventy --serve",
-  "watch": "eleventy --watch",
-  "debug": "DEBUG=* eleventy"
+    "build": "eleventy",
+    "serve": "eleventy --serve",
+    "watch": "eleventy --watch",
+    "debug": "DEBUG=* eleventy"
   },
   "repository": {
     "type": "git",
@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/Dubestephane1/nostradamus#readme",
   "devDependencies": {
-    "@11ty/eleventy": "^3.1.2"
+    "@11ty/eleventy": "^3.1.2",
+    "tailwindcss": "^3.4.17"
   }
 }

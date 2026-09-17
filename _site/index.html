@@ -19,20 +19,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
 
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            cinzel: ['Cinzel', 'serif'],
-            playfair: ['Playfair Display', 'serif'],
-          }
-        }
-      }
-    }
-  </script>
-
+  <link href="/css/tailwind.css" rel="stylesheet">
   <link href="/style.css" rel="stylesheet">
 
   <!-- Open Graph -->
@@ -60,6 +47,7 @@
 </head>
 <body class="min-h-screen">
 
+  <main>
   <!-- Hero Section -->
   <header class="hero relative py-32 text-center">
     <div class="relative z-10 max-w-5xl mx-auto px-6">
@@ -175,16 +163,17 @@
     </div>
   </section>
 
- <div class="timeline-section pt-12 px-6 max-w-auto mx-auto">
+<div class="timeline-section pt-12 px-6 max-w-auto mx-auto">
   <div class="iframe-placeholder" data-src="https://cdn.knightlab.com/libs/timeline3/latest/embed/index.html?source=v2%3A2PACX-1vQBlVjJ_e-oDj1gmuXIZ6wAGjEDMaKcCTgrULxHcxxrl4bHIEzhHe9B9uxWNWCk54RI4UX32jIXjO5g&font=Default&lang=en&initial_zoom=2&width=100%25&height=400">
-    <div class="spinner">Loading…</div>
+    <div class="spinner">Click to load the interactive timeline.</div>
   </div>
   <iframe class="lazy-iframe" style="display:none;width:100%;height:425px;border:0" allowfullscreen title="Nostradamus timeline"></iframe>
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded',()=>{const p=document.querySelector('.iframe-placeholder'),i=document.querySelector('.lazy-iframe');if('loading'in HTMLIFrameElement.prototype&&i.getBoundingClientRect().top<window.innerHeight){i.src=p.dataset.src;i.style.display='block';p.remove();return}const o=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){i.src=p.dataset.src;i.style.display='block';p.remove();o.unobserve(en.target)}})},{rootMargin:'200px'});o.observe(p)});
+document.addEventListener('DOMContentLoaded',()=>{const p=document.querySelector('.iframe-placeholder'),i=document.querySelector('.lazy-iframe');p.addEventListener('click',()=>{i.src=p.dataset.src;i.style.display='block';p.remove()})});
 </script>
+  </main>
 
 <footer class="mt-16 py-12 bg-gradient-to-t from-gray-950 via-gray-900 to-transparent border-t border-amber-900/40">
   <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-2 text-gray-300">

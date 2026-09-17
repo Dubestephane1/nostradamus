@@ -7,9 +7,12 @@ module.exports = function (eleventyConfig) {
 
   eleventyConfig.addPassthroughCopy("js");
   eleventyConfig.addPassthroughCopy("images");
+  eleventyConfig.addPassthroughCopy("css");
   eleventyConfig.addPassthroughCopy("style.css");
 
   eleventyConfig.addPassthroughCopy("_redirects");
+  eleventyConfig.addPassthroughCopy("_headers");
+  eleventyConfig.addPassthroughCopy("robots.txt");
 
   eleventyConfig.addNunjucksFilter("padStart", function (value, length, char) {
     const str = String(value == null ? "" : value);
