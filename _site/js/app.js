@@ -251,11 +251,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (searchInput && searchResults) {
     let searchTimeout;
+    let searchIndexLoading = false;
     searchInput.addEventListener('input', (e) => {
       clearTimeout(searchTimeout);
       searchTimeout = setTimeout(() => {
+        // Lazy-build the search index on first use (saves ~280 KiB of JSON
+        // fetches on initial page load, which was delaying LCP on slow networks)
+        if (!fuse && !searchIndexLoading) {
+          searchIndexLoading = true;
+          loadAllQuatrainsForSearch().then(() => {
+            if (searchInput.value.trim().length >= 2) {
+              searchInput.dispatchEvent(new Event('input'));
+            }
+          });
+        }
         if (!fuse) {
-          console.warn("Search index not ready yet...");
+          console.warn("Search index still loading...");
           return;
         }
         const query = e.target.value.trim();
